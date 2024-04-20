@@ -42,7 +42,7 @@ public class MySignatureTest {
 		if(args[0].contains("ECDSA"))
 			generating_key = "EC";
 	
-    	System.out.println( "\nStart generating RSA key" );
+    	System.out.println( "\nStart generating " + generating_key + " key" );
     	KeyPairGenerator keyGen = KeyPairGenerator.getInstance(generating_key);
 	if(generating_key == "EC"){
 		ECGenParameterSpec keyParams = new ECGenParameterSpec("secp256k1");
@@ -51,7 +51,7 @@ public class MySignatureTest {
 	else
     		keyGen.initialize(2048);
     	KeyPair key = keyGen.generateKeyPair();
-    	System.out.println( "Finish generating RSA key" );
+    	System.out.println( "\nFinish generating " + generating_key + " key" );
 
         System.out.println( "\nStart generating signature" );
         MySignature sig = MySignature.getInstance(pattern);
