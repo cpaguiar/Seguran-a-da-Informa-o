@@ -16,7 +16,6 @@ public class MySignatureTest {
 		byte[] plainText = args[1].getBytes("UTF8");
 
 		String pattern = null;
-		String generating_key = null;
 
 		switch(args[0]){
 		case "MD5withRSA":
@@ -39,24 +38,11 @@ public class MySignatureTest {
 			System.exit(1);
 		}
 
-		if(args[0].contains("RSA"))
-			generating_key = "RSA";
-		else
-			if(args[0].contains("ECDSA"))
-				generating_key = "EC";
-
-		System.out.println( "\nStart generating " + generating_key + " key" );
-		KeyPairGenerator keyGen = KeyPairGenerator.getInstance(generating_key);
-		if(generating_key == "EC"){
-			ECGenParameterSpec keyParams = new ECGenParameterSpec("secp256k1");
-			keyGen.initialize(keyParams);
-		}
-		else{
-			keyGen.initialize(2048);
-		}
-
+		System.out.println( "\nStart generating RSA key" );
+		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+		keyGen.initialize(2048);
 		KeyPair key = keyGen.generateKeyPair();
-		System.out.println( "\nFinish generating " + generating_key + " key" );
+		System.out.println( "Finish generating RSA key" );
 
 		System.out.println( "\nStart generating signature" );
 		MySignature sig = MySignature.getInstance(pattern);
